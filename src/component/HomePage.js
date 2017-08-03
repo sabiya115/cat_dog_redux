@@ -20,28 +20,28 @@ class AppComponent extends React.Component
 		this.handleDislikeBtnClick=this.handleDislikeBtnClick.bind(this);
 		this.handleLikeBtnClick=this.handleLikeBtnClick.bind(this);
 	}
-	componentDidMount(){
+	componentDidMount = () => {
 		this.fetchImages();
 	}
-	fetchImages(){
+	fetchImages = () =>{
 		this.getCatImageUrl();
 		this.getDogImageUrl();
 	}
-	getCatImageUrl(){
+	getCatImageUrl = () =>{
 		console.log(this.props);
-		axios.get(CAT_URL).then(function(resp){
+		axios.get(CAT_URL).then((resp) => {
 			this.props.action.updateImage("CAT",resp.data.imageUrl);
 			
-		}.bind(this));
+		});
 	}
-	getDogImageUrl(){
-		axios.get(DOG_URL).then(function(resp){
+	getDogImageUrl = () =>{
+		axios.get(DOG_URL).then((resp) => {
 			this.props.action.updateImage("DOG",resp.data.imageUrl);
 			
-		}.bind(this));
+		});
 	}
 
-	handleLikeBtnClick(event) {
+	handleLikeBtnClick = event => {
 		this.fetchImages();
 		console.log("inside buton click");
 		if(event.target.value==="Cat"){
@@ -55,7 +55,7 @@ class AppComponent extends React.Component
       
 	}
   
-	handleDislikeBtnClick(event) {
+	handleDislikeBtnClick = event => {
 		this.fetchImages();
 		if(event.target.value==="Cat"){
 			this.props.action.dislike("CAT");
@@ -65,10 +65,10 @@ class AppComponent extends React.Component
 			
 		}
 	}
-	handleShowWinnerBtnClick(){
+	handleShowWinnerBtnClick = () => {
 		this.props.action.showWinner();
 	}
-	handleStartOverBtnClick(){
+	handleStartOverBtnClick = () => {
 		this.fetchImages();
 		this.props.action.startOver();
 		
@@ -102,18 +102,10 @@ var style = {
 	fontSize: "2em",
 	color: "rebeccapurple"
 };
-function mapStateToProps(state) {
-	return {
-		cat: state.pet.cat,
-		dog:state.pet.dog
-	};
-}
-function matchDispatchToProps(dispatch){
-	console.log(actions);
-	return {action:bindActionCreators(actions,dispatch)};
-// 	return bindActionCreators({
-// 		action:actions
-// 	},
-// 	dispatch);
-}
+const mapStateToProps = state => ({
+	cat: state.pet.cat,
+	dog:state.pet.dog
+});
+const matchDispatchToProps = dispatch => ({action:bindActionCreators(actions,dispatch)});
+
 export default connect(mapStateToProps,matchDispatchToProps)(AppComponent);

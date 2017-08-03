@@ -1,4 +1,4 @@
-function reducer(prevState,action){
+const reducer=(prevState,action)=>{
 	console.log("hello from reducer");
 	var nextState=Object.assign({},prevState);
 	if(prevState=== undefined)

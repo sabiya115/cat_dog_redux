@@ -1,6 +1,6 @@
 import React from "react";
 
-var PetComponent =function(props) {
+const PetComponent = props => {
 	var disabled=false;
 	var result=null;
 	if(props.result!==""){
